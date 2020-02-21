@@ -54,7 +54,7 @@ const headingMapper = (category, label = 'All') => {
 
   return (entry) => {
     if (entry) {
-      const results = ['Username', 'Email'];
+      const results = ['Name'];
 
       const assignmentHeadings = entry
         .filter(filters[filter])

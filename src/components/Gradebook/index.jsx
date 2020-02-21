@@ -382,6 +382,9 @@ export default class Gradebook extends React.Component {
         Email: (
           <span className="wrap-text-in-cell">{entry.email}</span>
         ),
+        Name: (
+          <span className="wrap-text-in-cell">{entry.name}</span>
+        ),
       };
 
       const assignments = entry.section_breakdown
@@ -411,6 +414,9 @@ export default class Gradebook extends React.Component {
         ),
         Email: (
           <span className="wrap-text-in-cell">{entry.email}</span>
+        ),
+        Name: (
+          <span className="wrap-text-in-cell">{entry.name}</span>
         ),
       };
 
@@ -448,23 +454,8 @@ export default class Gradebook extends React.Component {
     let headings = [...this.props.headings];
 
     if (headings.length > 0) {
-      const userInformationHeadingLabel = (
-        <div>
-          <div>Username</div>
-          <div className="font-weight-normal student-key">Student Key*</div>
-        </div>
-      );
-      const emailHeadingLabel = 'Email*';
-
       headings = headings.map(heading => ({ label: heading, key: heading, width: 'col' }));
-
-      // replace username heading label to include additional user data
-      headings[0].label = userInformationHeadingLabel;
-      headings[0].width = 'col-2';
-      headings[1].label = emailHeadingLabel;
-      headings[1].width = 'col-2';
     }
-
     return headings;
   }
 
