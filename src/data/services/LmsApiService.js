@@ -137,6 +137,9 @@ class LmsApiService {
   static fetchUserAccounts(arrayOfUserNames) {
     return apiClient.get(`${LmsApiService.baseUrl}/api/user/v1/accounts?username=${arrayOfUserNames.join(',')}`);
   }
+  static fetchCurrentUser() {
+    return apiClient.get(`${LmsApiService.baseUrl}/api/user/v1/accounts`);
+  }
 }
 
 export default LmsApiService;

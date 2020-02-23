@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import SiteFooter from '@edx/frontend-component-footer';
 import { IntlProvider } from 'react-intl';
 
+
 import {
   faFacebookSquare,
   faTwitterSquare,
@@ -20,6 +21,7 @@ import Header from './components/Header';
 import store from './data/store';
 import FooterLogo from '../assets/edx-footer.png';
 import './App.scss';
+import LmsApiService from './data/services/LmsApiService';
 
 const socialLinks = [
   {
@@ -47,6 +49,17 @@ const socialLinks = [
     screenReaderText: 'Subscribe to the edX subreddit',
   },
 ];
+
+function init() {
+  LmsApiService.fetchCurrentUser().then((currentUsers) => {
+    const [currentUser] = currentUsers.data;
+    window.FS.identify(currentUser.username, {
+      displayName: currentUser.name,
+      email: currentUser.email,
+    });
+  });
+}
+init();
 
 const App = () => (
   <IntlProvider>
