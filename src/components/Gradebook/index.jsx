@@ -455,6 +455,7 @@ export default class Gradebook extends React.Component {
 
     if (headings.length > 0) {
       headings = headings.map(heading => ({ label: heading, key: heading, width: 'col' }));
+      headings[0].width = 'col-1';
     }
     return headings;
   }

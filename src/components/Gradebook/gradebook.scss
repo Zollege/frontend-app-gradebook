@@ -59,6 +59,10 @@
 }
 
 .gbook { 
+    th:not(:first-child), td:not(:first-child) {
+        width: 80px;
+    }
+
     overflow-x: scroll;
 
     .grade-button {
