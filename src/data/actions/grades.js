@@ -159,10 +159,10 @@ const fetchGrades = (
       .then((response) => {
         if (response.data.results && response.data.results.length > 0) {
           const { results } = response.data;
-          const userNames = results.map(u => u.username);
-          return LmsApiService.fetchUserAccounts(userNames).then((usersNames) => {
+          return LmsApiService.fetchStudentsFeatures(courseId).then((r) => {
+            const { students } = r.data;
             for (let i = 0; i < results.length; i += 1) {
-              const userProfile = usersNames.data.find(n => n.username === results[i].username);
+              const userProfile = students.find(n => n.username === results[i].username);
               results[i].name = userProfile ? userProfile.name : '';
             }
             return response.data;

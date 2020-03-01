@@ -140,6 +140,9 @@ class LmsApiService {
   static fetchCurrentUser() {
     return apiClient.get(`${LmsApiService.baseUrl}/api/user/v1/accounts`);
   }
+  static fetchStudentsFeatures(courseId) {
+    return apiClient.post(`${LmsApiService.baseUrl}/courses/${courseId}/instructor/api/get_students_features`);
+  }
 }
 
 export default LmsApiService;
