@@ -22,6 +22,7 @@ import Drawer from '../Drawer';
 import { formatDateForDisplay } from '../../data/actions/utils';
 import initialFilters from '../../data/constants/filters';
 import ConnectedFilterBadges from '../FilterBadges';
+import LmsApiService from '../../data/services/LmsApiService';
 
 
 const DECIMAL_PRECISION = 2;
@@ -76,12 +77,10 @@ export default class Gradebook extends React.Component {
       subsection.module_id,
       userEntry.user_id,
     );
-
     let adjustedGradePossible = '';
     if (subsection.attempted) {
       adjustedGradePossible = subsection.score_possible;
     }
-
     this.setState({
       modalAssignmentName: `${subsection.subsection_name}`,
       modalOpen: true,
@@ -131,7 +130,13 @@ export default class Gradebook extends React.Component {
     }
     return dialog;
   };
-
+  handleViewAssignmentClick = () => {
+    const openGrade = () => {
+      LmsApiService.openWindowToModule(this.state.updateModuleId);
+    };
+    LmsApiService.masqueradeAsStudent(this.props.courseId, this.state.updateUserName)
+      .then(openGrade);
+  }
   handleAdjustedGradeClick = () => {
     this.props.updateGrades(
       this.props.courseId, [
@@ -732,6 +737,13 @@ export default class Gradebook extends React.Component {
                       onClick={this.handleAdjustedGradeClick}
                     >
                       Save Grade
+                    </Button>,
+                    <Button
+                      buttonType="primary"
+                      style={{ backgroundColor: '#FD9226' }}
+                      onClick={this.handleViewAssignmentClick}
+                    >
+                      View Assignment
                     </Button>,
                   ]}
                   onClose={this.closeAssignmentModal}

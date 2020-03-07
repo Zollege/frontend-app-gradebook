@@ -143,6 +143,15 @@ class LmsApiService {
   static fetchStudentsFeatures(courseId) {
     return apiClient.post(`${LmsApiService.baseUrl}/courses/${courseId}/instructor/api/get_students_features`);
   }
+  static masqueradeAsStudent(courseId, username) {
+    return apiClient.post(`${LmsApiService.baseUrl}/courses/${courseId}/masquerade`, { role: 'student', user_name: username });
+  }
+  static fetchBlocksByCourseId(courseId) {
+    return apiClient.get(`${LmsApiService.baseUrl}/api/courses/v1/blocks/?course_id=${encodeURIComponent(courseId)}&all_blocks=true&depth=all`);
+  }
+  static openWindowToModule(moduleId) {
+    window.open(`${LmsApiService.baseUrl}/xblock/${moduleId}`);
+  }
 }
 
 export default LmsApiService;
