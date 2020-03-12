@@ -194,9 +194,9 @@ const fetchGrades = (
 );
 
 const formatGradeOverrideForDisplay = historyArray => historyArray.map(item => ({
-  date: formatDateForDisplay(new Date(item.history_date)),
-  grader: item.history_user,
-  reason: item.override_reason,
+  date: formatDateForDisplay(new Date(item.created)),
+  grader: item.user,
+  reason: item.comments,
   adjustedGrade: item.earned_graded_override,
 }));
 
