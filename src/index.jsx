@@ -53,10 +53,12 @@ const socialLinks = [
 function init() {
   LmsApiService.fetchCurrentUser().then((currentUsers) => {
     const [currentUser] = currentUsers.data;
-    window.FS.identify(currentUser.username, {
-      displayName: currentUser.name,
-      email: currentUser.email,
-    });
+    if (window.LogRocket) {
+      window.LogRocket.identify(currentUser.username, {
+        name: currentUser.name,
+        email: currentUser.email.toLowerCase(),
+      });
+    }
   });
 }
 init();
