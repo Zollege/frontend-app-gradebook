@@ -54,8 +54,10 @@ function init() {
   LmsApiService.fetchCurrentUser().then((currentUsers) => {
     const [currentUser] = currentUsers.data;
     if (window.LogRocket) {
-      window.LogRocket.identify(currentUser.email.toLowerCase());
-      window.LogRocket.identify(currentUser.name);
+      window.LogRocket.identify(currentUser.username, {
+        name: currentUser.name,
+        email: currentUser.email.toLowerCase(),
+      });
     }
   });
 }
