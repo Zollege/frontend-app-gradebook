@@ -245,6 +245,20 @@ const fetchPrevNextGrades = (endpoint, courseId, cohort, track, assignmentType) 
     dispatch(startedFetchingGrades());
     return apiClient.get(endpoint)
       .then(response => response.data)
+      .then((r) => {
+        if (r.results && r.results.length > 0) {
+          const { results } = r;
+          const userNames = results.map(u => u.username);
+          return LmsApiService.fetchUserAccounts(userNames).then((usersNames) => {
+            for (let i = 0; i < results.length; i += 1) {
+              const userProfile = usersNames.data.find(n => n.username === results[i].username);
+              results[i].name = userProfile ? userProfile.name : '';
+            }
+            return r;
+          });
+        }
+        return r;
+      })
       .then((data) => {
         dispatch(gotGrades({
           grades: data.results.sort(sortAlphaAsc),
